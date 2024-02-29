@@ -1,0 +1,113 @@
+<rml>
+<head>
+	<title>home</title>
+	<link type="text/template" href="template_rca.rml" />
+	<script>
+		Element @mecu;
+		
+
+		void onCustomClick( Element @self, Event @evt )
+		{
+			window.close();
+
+			String command = self.getAttr( 'command', '' );
+			if( !command.empty() ) {
+				game.execAppend( command + '\n' );
+			}
+		}
+
+		void setupCustomMenu( Element @body )
+		{
+			bool debug = false;
+
+			@mecu = @body.getElementById( 'menu-ingame' );
+			if ( @mecu == null )
+				return;
+
+			// end temp
+
+			const Dictionary @dict = body.ownerDocument.URL.getParameters();
+			if ( dict.empty() )
+				return;
+
+			String @params;
+			dict.get( "param1", @params );
+
+			if( @params == null )
+				return;
+
+			URL newURL = URL("?"+params);
+
+			if ( debug )
+				game.execAppend( "echo \"" + newURL.getQueryString() + "\";\n" );
+
+			@dict = newURL.getParameters();
+
+			String @tempTitle;
+			dict.get("title",@tempTitle);
+			String titleRml = '<h1>'+tempTitle+'</h1>';
+			mecu.getElementById('menu-title').setInnerRML( titleRml );
+
+			String menuRml = '';
+
+			String @tempMapName;
+			
+			String @tempMapImage;
+			
+
+			for ( int i = 0; ; i++ )
+			{
+				@tempMapName = null;
+	
+				@tempMapImage = null;
+				
+			
+				dict.get( "mn" + i, @tempMapName );
+		
+				dict.get( "mi" + i, @tempMapImage );
+				
+
+				if ( @tempMapName == null  || @tempMapImage == null )
+					break;
+				
+				menuRml += '<button map_id="' + i +  '" onclick="$onMapClick"><img src="' + tempMapImage + '"/><div>'+ tempMapName + '</div></button>';
+				
+			}
+
+			mecu.getElementById('menu-maps').setInnerRML( menuRml );
+
+			setModalY( 0.5f );
+		}
+
+
+
+		void onMapClick( Element @self, Event @evt)
+		{
+			String id = self.getAttr("map_id", '');
+			game.execAppend( "nextmap_vote " + id + "\n" );			
+			window.close();
+		}
+
+		void onCloseButton( Element @self, Event @evt)
+		{
+			window.close();
+		}
+
+		
+		
+		void onCustomShow( Element @body, Event @evt )
+		{
+			setupCustomMenu( body );
+			animationsOnShow();
+		}
+	</script>
+</head>
+<body template="porkui_rca" onload="$onTemplateLoad" onshow="$onCustomShow">
+	<div id="menu-ingame">
+		<button id="close-button" onclick="$onCloseButton" />
+		<div id="menu-title"/>
+		<div id="menu-maps" />
+		
+	</div>
+</body>
+</rml>

@@ -1,0 +1,15 @@
+/shared/constants.as;
+/shared/utils.as;
+/shared/files.as;
+
+generic/quickmenu.as;
+generic/matchstates.as;
+generic/bots.as;
+rca/rca_awards.as;
+rca/rca_player.as;
+rca/rca_chat.as;
+rca/rca_badwords.as;
+
+rca.as;
+
+legacy/quake1.as;

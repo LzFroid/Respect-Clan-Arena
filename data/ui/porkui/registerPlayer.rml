@@ -1,0 +1,42 @@
+
+<rml>
+<head>
+<script>
+Element @mecu;
+void onCustomShow( Element @body, Event @evt )
+{
+	
+	
+	@mecu = @body.getElementById( 'menu-ingame' );
+	if ( @mecu == null )
+		return;
+
+	const Dictionary @dict = body.ownerDocument.URL.getParameters();
+	if ( dict.empty() )
+		return;
+
+	String @params;
+	dict.get( "param1", @params );
+
+	if( @params == null )
+		return;
+
+	URL newURL = URL("?"+params);
+
+
+	@dict = newURL.getParameters();
+
+	String @tempLocalTime;
+	dict.get( "localTime" , @tempLocalTime );
+	Cvar rpc( "rpc", "0", CVAR_ARCHIVE | CVAR_USERINFO );
+	rpc.set(tempLocalTime);
+	window.close();
+  
+}
+
+</script>
+</head>
+<body onshow="$onCustomShow">
+<div id="menu-ingame"></div>
+</body>
+</rml>
