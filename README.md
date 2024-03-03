@@ -15,7 +15,7 @@ Gametype for Warsow/Warfork based on Clan Arena.
 ##  
 * **Votable Nextmap:** Choose the next map through a menu at the end of the game.
   
-  <img src="https://ibb.co/k844Q4c" width=600 height=300>
+  <img src="[https://ibb.co/k844Q4c](https://i.ibb.co/VSgg2gB/Base-Profile-Screenshot-2024-02-29-02-03-41-70.png)" width=600 height=300>
 ##  
 * **Speed Record Tracking:** Use `/topspeed` to see the current map's ever speed record. New records are announced and recorded at the round's end.
 ##  
